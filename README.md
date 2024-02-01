@@ -1,0 +1,1 @@
+npm run dev  dans le terminal sur le port 3000 (http://localhost:3000/)

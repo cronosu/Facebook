@@ -18,8 +18,12 @@ const config: Config = {
       },
       screens: {
         'md': '862px'
-      }
-
+      },
+      colors: {
+       
+        'green': 'rgb(22 200 50)',
+        'blueBtn': '#1877f2'
+      },
     },
   },
   plugins: [],
