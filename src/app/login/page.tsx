@@ -1,9 +1,11 @@
 "use client"
-import Coucou from "./component/Coucou";
-export default function Login() {
+import Login from "./component/Login";
+
+export default function LoginPage() {
   return (
     <main>
-      <Coucou/>
+      <Login/>
+   
     </main>
   );
 }
