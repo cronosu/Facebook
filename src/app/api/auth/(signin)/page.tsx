@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LuPlusSquare } from "react-icons/lu";
 
 
-export default function Login() {
+export default function Login() {  
   return (
     <div className="flex flex-col justify-center items-center   w-full  font-sans ">
       <div className="bg-gray-100  flex  justify-center items-center  gap-5  w-full h-[700px] font-sans ">

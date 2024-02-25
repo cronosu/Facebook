@@ -1,14 +1,18 @@
-"use Client"
+
 import React from 'react';
 import ButtonMainPage from './ButtonMainPage';
+import { auth, signIn, signOut } from "@/auth"
+import Link from 'next/link';
 
-const Header = () => {
+async function Header() {
+    const session = await auth();
+
     return (
         <nav className='w-full bg-neutral-800 h-[56px] items-center flex px-3  border-b-[1px] border-neutral-600 border-solid select-none justify-between'>
             <div className='flex gap-2 '>
-                <a href="/" onClick={() => location.reload()}>
+                <Link href="/login" >
                     <img src='/logo.png' className='w-10'></img>
-                </a>
+                </Link>
                 <div className="relative">
                     <input
                         className='w-[250px] size-10 rounded-3xl bg-neutral-700 items-center appearance-none font-sans text-white font-thin 
@@ -56,9 +60,34 @@ const Header = () => {
                 />
             </div>
             <div className=''>
-                <p>test</p>
+                {session && session.user ?
+                    <>
+                        <p>{session.user.name}</p>
+                
+                        <form
+                            action={async () => {
+                                "use server"
+                                await signOut()
+                            }}>
+                            <button type="submit">Se déconnecter</button>
+                        </form></>
+
+                    :
+                    <form
+                        action={async () => {
+                            "use server"
+                            await signIn()
+                           console.log(session)
+                        }}>
+                        <button type="submit">Se connecter</button>
+                    </form>
+                }
+
+
+
+
             </div>
-        </nav>
+        </nav >
     );
 };
 
