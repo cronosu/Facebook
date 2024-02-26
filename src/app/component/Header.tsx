@@ -1,11 +1,15 @@
 
-import React from 'react';
 import ButtonMainPage from './ButtonMainPage';
 import { auth, signIn, signOut } from "@/auth"
 import Link from 'next/link';
 
+
+
 async function Header() {
     const session = await auth();
+    const buttons = ["Home", "TV", "Market", "Groupes", "Jeux"];
+
+
 
     return (
         <nav className='w-full bg-neutral-800 h-[56px] items-center flex px-3  border-b-[1px] border-neutral-600 border-solid select-none justify-between'>
@@ -18,7 +22,7 @@ async function Header() {
                         className='w-[250px] size-10 rounded-3xl bg-neutral-700 items-center appearance-none font-sans text-white font-thin 
                     pl-[45px]
                     outline-none
-                    '
+                    ' 
                         placeholder='Rechercher sur Facebook'
                     />
                     <svg
@@ -28,7 +32,7 @@ async function Header() {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
-                        strokeLinecap="round"
+                        strokeLinecap="round" 
                         strokeLinejoin="round"
                     >
                         <circle cx="11" cy="11" r="8" />
@@ -37,56 +41,41 @@ async function Header() {
                 </div>
 
             </div>
+
             <div className='flex gap-2'>
-                <ButtonMainPage
-                    active={true}
-                    icon="home"
-                />
-                <ButtonMainPage
-                    active={false}
-                    icon="TV"
-                />
-                <ButtonMainPage
-                    active={false}
-                    icon="Market"
-                />
-                <ButtonMainPage
-                    active={false}
-                    icon="Groupes"
-                />
-                <ButtonMainPage
-                    active={false}
-                    icon="Jeux"
-                />
+                {buttons.map((type, index) => (
+                    <ButtonMainPage  active={index===0} key={index} icon={type}/>
+                ))}
             </div>
             <div className=''>
-                {session && session.user ?
-                    <>
-                        <p>{session.user.name}</p>
-                
-                        <form
-                            action={async () => {
-                                "use server"
-                                await signOut()
-                            }}>
-                            <button type="submit">Se déconnecter</button>
-                        </form></>
+            {session && session.user ?
+                <>
+                    <p>{session.user.name}</p>
 
-                    :
                     <form
                         action={async () => {
                             "use server"
-                            await signIn()
-                           console.log(session)
+                            await signOut()
                         }}>
-                        <button type="submit">Se connecter</button>
-                    </form>
-                }
+                        <button type="submit">Se déconnecter</button>
+                    </form></>
+
+                :
+                <form
+                    action={async () => {
+                        "use server"
+                                     await signIn()
+                        console.log(session)
+                    }}>
+                    <button type="submit">Se connecter</button>
+                </form>
+            }
 
 
 
 
-            </div>
+        </div>
+    
         </nav >
     );
 };
