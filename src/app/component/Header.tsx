@@ -1,12 +1,11 @@
 
-import ButtonMainPage from './ButtonMainPage';
+import { Children } from 'react';
 import { auth, signIn, signOut } from "@/auth"
 import Link from 'next/link';
+import AllBtn from './AllBtn';
 
+function Header({children}) {
 
-
-async function Header() {
-    const session = await auth();
     const buttons = ["Home", "TV", "Market", "Groupes", "Jeux"];
 
 
@@ -41,43 +40,12 @@ async function Header() {
                 </div>
 
             </div>
-
-            <div className='flex gap-2'>
-                {buttons.map((type, index) => (
-                    <ButtonMainPage  active={index===0} key={index} icon={type}/>
-                ))}
-            </div>
-            <div className=''>
-            {session && session.user ?
-                <>
-                    <p>{session.user.name}</p>
-
-                    <form
-                        action={async () => {
-                            "use server"
-                            await signOut()
-                        }}>
-                        <button type="submit">Se déconnecter</button>
-                    </form></>
-
-                :
-                <form
-                    action={async () => {
-                        "use server"
-                                     await signIn()
-                        console.log(session)
-                    }}>
-                    <button type="submit">Se connecter</button>
-                </form>
-            }
-
-
-
-
-        </div>
+            <AllBtn/>
+         
+            {children}
     
         </nav >
     );
-};
+}; 
 
 export default Header;

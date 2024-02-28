@@ -9,27 +9,19 @@ import { useState } from "react";
 
 interface ButtonProps {
     icon: string;
-    active: boolean;
+    active: string;
+    onclick:any
 }
 
-const ButtonMainPage: React.FC<ButtonProps> = ({ icon, active }) => {
-
-    const buttons = ["Home", "TV", "Market", "Groupes", "Jeux"];
-    const [activeButton, setActiveButton] = useState<string>("Home");
-
-    const handleClick = (icon: string): void => {
-        setActiveButton(icon);
-
-    };
+const ButtonMainPage: React.FC<ButtonProps> = ({ icon, active,onclick }) => {
 
 
-
-    return (
+    return ( 
         <button
-            onClick={() => handleClick(icon)}
-            className={`flex h-12 w-32 justify-center items-center
-             ${activeButton===icon ?
-                    "text-blue-900"
+            onClick={onclick}
+            className={`flex h-14 w-32 justify-center items-center ml-2
+             ${active===icon ?
+                    "text-blue-900 border-b-4 border-blue-900 pt-[5px]"
                     :
                     "hover:bg-neutral-700 hover:rounded-xl text-white"
                 }`}
@@ -42,9 +34,6 @@ const ButtonMainPage: React.FC<ButtonProps> = ({ icon, active }) => {
                                 : icon === "Jeux" ? <IoGameControllerOutline className='size-7' />
                                     : icon
             }
-
-            {icon}{activeButton}
-
         </button>
     );
 };
