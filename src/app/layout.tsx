@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+
 import "./globals.css";
 import { ReactNode } from "react";
+
+
 
 export const metadata: Metadata = {
   title: "Facebook",
@@ -10,18 +12,21 @@ export const metadata: Metadata = {
 
 interface IProps {
   children: ReactNode;
-  session: any;
 }
 
-export default function RootLayout({
-  children, session
+export default async function RootLayout({
+  children
 }: IProps) {
+
   return (
-    <html lang="fr">
-      <body>
-        <SessionProvider session={session}>
+    <html lang="fr" >
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body > 
+
           {children}
-        </SessionProvider>
+
       </body>
     </html>
   );

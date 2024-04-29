@@ -1,19 +1,13 @@
-
-import { Children } from 'react';
-import { auth, signIn, signOut } from "@/auth"
 import Link from 'next/link';
 import AllBtn from './AllBtn';
+import {auth } from "../api/auth/[...nextauth]/route";
 
-function Header({children}) {
-
-    const buttons = ["Home", "TV", "Market", "Groupes", "Jeux"];
-
-
-
+async  function Header({children}: {children: React.ReactNode}) {
+    const session: any = await auth();
     return (
         <nav className='w-full bg-neutral-800 h-[56px] items-center flex px-3  border-b-[1px] border-neutral-600 border-solid select-none justify-between'>
             <div className='flex gap-2 '>
-                <Link href="/login" >
+                <Link href={session ? "/accueil": "/login" } >
                     <img src='/logo.png' className='w-10'></img>
                 </Link>
                 <div className="relative">

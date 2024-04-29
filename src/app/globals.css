@@ -2,6 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+
+base {
+	* {
+		box-sizing: border-box;
+	} 
+  }
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -34,6 +40,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	box-sizing: border-box;
+	height: 100vh;
 }
 ol, ul {
 	list-style: none;
@@ -61,3 +69,8 @@ main{
 	display: flex;
 	justify-content: center;
 } 
+*,
+::before,
+::after {
+  box-sizing: border-box; 
+}
