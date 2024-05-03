@@ -2,13 +2,18 @@
 import Link from "next/link";
 import { LuPlusSquare } from "react-icons/lu";
 import { signIn } from "next-auth/react"
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const [errorConection, setErrorConection] = useState<boolean>(false);
+
   const router = useRouter();
 
+
+
   const handlkeSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
     try {
       const formData = new FormData(e.currentTarget);
@@ -18,10 +23,14 @@ export default function Login() {
         redirect: false,
       }
       );
-      console.log(res)
       if (res.error === null) router.push("/accueil")
-      else console.log(res.error)
-
+      else {
+        console.log(res)
+        if (!errorConection) {
+          setErrorConection(true)
+          setTimeout(() => setErrorConection(false), 3000)
+        }
+      }
     } catch (e) {
       console.log(e)
     }
@@ -62,6 +71,9 @@ export default function Login() {
               >
                 Se connecter
               </button >
+
+              {errorConection && <div className="w-full p-2  b-1 rounded-lg bg-red-200 text-center  text-red-600 ">Identification incorrecte. </div>}
+
               <Link href="/password" className="text-blue-500 tracking-tight hover:underline">Mot de passe oublié ?</Link>
               <div className="bottom-0 w-full h-[1px] bg-blue-300 ">
 

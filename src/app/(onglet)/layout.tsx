@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <Header>
       <Session />
     </Header>
-    <div className="w-full h-[calc(100vh-56px)] bg-neutral-700">
+    <div className="w-full h-[calc(100vh-56px)] bg-neutral-900">
   
     { children }
     </div>

@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import AllBtn from './AllBtn';
-import {auth } from "../api/auth/[...nextauth]/route";
+import {auth } from "@/auth";
 
 async  function Header({children}: {children: React.ReactNode}) {
     const session: any = await auth();
     return (
         <nav className='w-full bg-neutral-800 h-[56px] items-center flex px-3  border-b-[1px] border-neutral-600 border-solid select-none justify-between'>
-            <div className='flex gap-2 '>
+            <div className='flex gap-2'>
                 <Link href={session ? "/accueil": "/login" } >
-                    <img src='/logo.png' className='w-10'></img>
+                    <img src='/logo.png' className='min-size-[40px] size-[40px] min-w-[40px]'></img>
                 </Link>
                 <div className="relative">
                     <input
@@ -34,6 +34,7 @@ async  function Header({children}: {children: React.ReactNode}) {
                 </div>
 
             </div>
+            
             <AllBtn/>
          
             {children}

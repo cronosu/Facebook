@@ -1,16 +1,13 @@
-import { handlers } from "@/auth" 
-export const { GET, POST } = handlers
-
-/*
-import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import NextAuth from "next-auth";
 import mongoose from "mongoose";
-import user from "../../../../(models)/user";
+import user from "./src/(models)/user";
 import { compare } from "bcrypt";
-//import { NextResponse } from "next/server";
-export const { auth, signIn, signOut, handlers: { GET, POST } } = NextAuth({
+import authConfig from "./auth.config"
 
+export const { auth, handlers, signIn, signOut } = NextAuth({
+    session: { strategy: "jwt" },
+    ...authConfig,
     providers: [
         CredentialsProvider({
             name: "Identifiant",
@@ -36,39 +33,39 @@ export const { auth, signIn, signOut, handlers: { GET, POST } } = NextAuth({
                     if (sqlUser !== undefined) {
                         await mongoose.connect(sqlUser)
                         const responce = await user.findOne({ email: credentials.email });
-                          if (responce === null) {
-                              return null
-                          }
+                         if (responce === null) {
+                            throw new Error("L'utilisateur n'existe pas");
+                        }
                         const correctPassword = await compare(credentials.password.toString(), responce.password);
-
-
                         if (correctPassword) {
                             const User: User = {
                                 email: responce.email,
                                 name: responce.nickname,
                                 image: responce.image,
                             };
-                            return User;
+                            return User ;
                         }
 
                     }
                 }
                 catch (e) {
-                    return null
+                  throw new Error("Erreur lors de la connexion") 
                 }
-
             },
         })
     ], secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: '/login',
-        --  error: '/accueil'--
+        /*  error: '/accueil'*/
 
     },
     callbacks: {
-        -- signIn: async () => {
+        /*  signIn: async () => {
               console.log("test");
-              return false--
+              return false*/
     }
 
-});*/
+});
+
+
+

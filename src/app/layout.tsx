@@ -21,7 +21,6 @@ export default async function RootLayout({
   return (
     <html lang="fr" >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body > 
 
